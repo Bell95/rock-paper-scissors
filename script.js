@@ -19,8 +19,6 @@ to play 5 round games with loop
 keeps score
 report winner or loser at the end
 
-
-
 */
 
 function computerPlay() {
@@ -32,76 +30,106 @@ function computerPlay() {
     }
 }
 
-function playRound(playerSelection, computerSelection) {
+let playerScore = 0;
+let computerScore = 0;
+
+function playRound(playerSelection) {
+
+    let computerSelection = computerPlay();
+
     if (playerSelection === 'rock' && computerSelection === 'rock') {
-        return 'You draw! Rock draw Rock';
+        console.log('draw');
+
+
     } else if (playerSelection === 'rock' && computerSelection === 'paper') {
-        return 'You Lose! Paper beats Rock';
+        console.log('You lose');
+        computerScore++;
+
+
     } else if (playerSelection === 'rock' && computerSelection === 'scissors') {
-        return 'You Won! Rock beats scissors';
+        console.log('you win');
+        playerScore++;
+
     }
 
     if (playerSelection === 'paper' && computerSelection === 'rock') {
-        return 'You Won! Paper beats Rock';
+        console.log('You win');
+        playerScore++;
+
     } else if (playerSelection === 'paper' && computerSelection === 'paper') {
-        return 'You draw! Paper draw Paper';
+        console.log('draw');
     } else if (playerSelection === 'paper' && computerSelection === 'scissors') {
-        return 'You Lost! Scissors beats paper';
+        console.log('You lose');
+        computerScore++;
     }
 
 
     if (playerSelection === 'scissors' && computerSelection === 'rock') {
-        return 'You lost! Rock beats Scissors';
+        console.log('You lose');
+        computerScore++;
     } else if (playerSelection === 'scissors' && computerSelection === 'paper') {
-        return 'You Won! Scissors beats Paper';
+        console.log('You win');
+        playerScore++;
     } else if (playerSelection === 'scissors' && computerSelection === 'scissors') {
-        return 'You draw! Scissors draw scissors';
+        console.log('You draw');
     }
+
+    console.log(computerScore);
+    console.log(playerScore);
 
 }
 
-function game() {
-    let user = prompt('Enter choice');
-    let score = '';
-    let counter = 0;
+const container = document.querySelector('#container');
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+const computerScoreUpdate = document.querySelector('#computerScore');
+const playerScoreUpdate = document.querySelector('#playerScore');
 
-    for (let i = 0; i < 5; i++) {
-        score = playRound(user, computerPlay());
-        console.log(score);
-
-        if (score === 'You draw! Rock draw Rock') {
-            counter = counter + 0;
-        } else if (score === 'You Lose! Paper beats Rock') {
-            counter = counter - 1;
-        } else if (score === 'You Won! Paper beats Rock') {
-            counter = counter + 1;
-        }
-
-        if (score === 'You draw! Paper draw Paper') {
-            counter = counter + 0;
-        } else if (score === 'You Lost! Scissors beats paper') {
-            counter = counter - 1;
-        } else if (score === 'You Won! Rock beats scissors') {
-            counter = counter + 1;
-        }
-
-        if (score === 'You draw! Scissors draw scissors') {
-            counter = counter + 0;
-        } else if (score === 'You lost! Rock beats Scissors') {
-            counter = counter - 1;
-        } else if (score === 'You Won! Scissors beats Paper') {
-            counter = counter + 1;
-        }
-
+rock.addEventListener('click', () => {
+    playRound('rock');
+    if (computerScore === 5) {
+        alert('Game over Computer WON!')
+        computerScore = 0;
+        playerScore = 0;
+    } else if (playerScore === 5) {
+        alert('Game over You WON!');
+        computerScore = 0;
+        playerScore = 0;
     }
+    computerScoreUpdate.textContent = 'This is computer score: ' + computerScore;
+    playerScoreUpdate.textContent = 'This is Your score: ' + playerScore;
+});
 
-    if (counter >= 1) {
-        console.log('Congratulations YOU WON with a score of ' + counter)
-    } else if (counter == 0) {
-        console.log('Hmmm you have DRAWN');
-    } else {
-        console.log('Damn it YOU LOST with a score of ' + counter);
+paper.addEventListener('click', () => {
+    playRound('paper');
+    if (computerScore === 5) {
+        alert('Game over Computer WON!')
+        computerScore = 0;
+        playerScore = 0;
+    } else if (playerScore === 5) {
+        alert('Game over You WON!');
+        computerScore = 0;
+        playerScore = 0;
     }
-}
+    computerScoreUpdate.textContent = 'This is computer score: ' + computerScore;
+    playerScoreUpdate.textContent = 'This is Your score: ' + playerScore;
+});
 
-game();
+scissors.addEventListener('click', () => {
+    playRound('scissors');
+    if (computerScore === 5) {
+        alert('Game over Computer WON!')
+        computerScore = 0;
+        playerScore = 0;
+    } else if (playerScore === 5) {
+        alert('Game over You WON!');
+        computerScore = 0;
+        playerScore = 0;
+    }
+    computerScoreUpdate.textContent = 'This is computer score: ' + computerScore;
+    playerScoreUpdate.textContent = 'This is Your score: ' + playerScore;
+});
+
+computerScoreUpdate.textContent = 'This is computer score: 0';
+playerScoreUpdate.textContent = 'This is Your score: 0';
